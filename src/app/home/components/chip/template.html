@@ -1,0 +1,227 @@
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+
+
+import {
+} from '@app/catalog/models';
+import { CatalogSelectors } from '@app/catalog/selectors';
+import { CatalogService } from '@app/catalog/services';
+import { Tab, Product } from '@app/core/models';
+import { I18nService } from '@app/core/services';
+import {
+  catalogPageAnimation,
+  catalogPageFadeInAnimation,
+} from '@app/shared/animations';
+import { SimpleTabsComponent } from '@app/shared/components';
+import { tryGet } from '@app/shared/utils';
+import { combineLatest, Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+
+const NAVBAR_HEIGHT = 68;
+
+@Component({
+  selector: 'pf-catalog-page',
+  templateUrl: './catalog-page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [catalogPageAnimation, catalogPageFadeInAnimation],
+})
+export class CatalogPageComponent implements AfterViewInit, OnInit, OnDestroy {
+
+  @HostBinding('class.pf-catalog-page')
+  hostClass = true;
+
+  @ViewChild('pfSimpleTabs')
+  pfSimpleTabs: SimpleTabsComponent;
+
+  @ViewChild('stickyFilterBar')
+  filterBar: ElementRef;
+
+  @HostListener('window:scroll', ['$event'])
+  handleScroll (): void {
+    this.sticky = window.pageYOffset >= this.filterBarPosition - this.navbarHeight;
+  }
+
+  destroyed$ = new Subject<void>();
+
+  filteredActivities$ = this.store.select(CatalogSelectors.filteredActivities);
+  filteredPaths$ = this.store.select(CatalogSelectors.filteredPaths);
+  listControls$ = this.store.select(state => state.listControls);
+  activitiesTypes$ = this.store.select(state => state.activityTypes);
+  isLoggedIn$ = this.store.select(state => state.auth.isLoggedIn);
+  filters$ = this.store.select(state => state.filters);
+  selectedTab$ = this.store.select(state => state.currentTab);
+  activitiesCount$ = this.filteredActivities$.pipe(map(filtered => filtered.length));
+  pathsCount$ = this.filteredPaths$.pipe(map(filtered => filtered.length));
+  cardsCount$ = combineLatest(this.activitiesCount$, this.pathsCount$).pipe(
+    map(([activities, paths]) => activities + paths));
+
+  tabs: Tab[] = [];
+  emptyStateActivitiesData: EmptyStateFilter;
+  emptyStatePathsData: EmptyStateFilter;
+  emptyStateData: EmptyStateFilter;
+  pageContent: CatalogPage;
+  filtersMenus: CatalogMenu[] = [];
+  filtersValues: CatalogFilter;
+
+  activitiesDisplayed: number;
+  moreCards: number;
+  navbarHeight: number = NAVBAR_HEIGHT;
+  pathsDisplayed: number;
+  totalActivities: number;
+  totalPaths: number;
+
+  noMatchCards: boolean = false;
+  sticky: boolean = false;
+
+  filterBarPosition: any;
+
+  constructor (
+    public store: CatalogService,
+    private route: ActivatedRoute,
+    private readonly router: Router,
+    private i18n: I18nService
+  ) {}
+
+  ngOnInit (): void {
+    const routeData = this.getRouteData();
+    this.store.setRouteData(routeData);
+    this.pageContent = routeData.pageContent;
+    this.emptyStateActivitiesData = this.pageContent.no_match_section.no_match_activity;
+    this.emptyStatePathsData = this.pageContent.no_match_section.no_match_path;
+    this.emptyStateData = this.pageContent.no_match_section.no_match_both;
+
+    this.filtersMenus = CatalogSelectors.filtersMenus(this.store.state);
+
+    this.setInitialCardsDisplayed();
+
+    this.route.queryParams
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(params => this.store.updateStateWithRouteParams(params));
+
+    this.filters$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(filterStoreValues => {
+        this.filtersValues = this.getFiltersValues(filterStoreValues, this.filtersMenus);
+      });
+
+    this.filteredActivities$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(activities =>
+        activities.map(activity => {
+          activity.related_products = activity.related_products.map((product: Product) => ({
+            ...product,
+            filter: this.store.encrypt({ 'Product': { [product.alias]: true } }),
+          }));
+        })
+      );
+
+    this.tabs = this.store.buildCatalogPageSimpleTabs(this.pageContent);
+    this.selectedTab$.pipe(takeUntil(this.destroyed$));
+  }
+
+  ngAfterViewInit (): void {
+    this.filterBarPosition = this.filterBar.nativeElement.offsetTop;
+  }
+
+  ngOnDestroy (): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
+  private setInitialCardsDisplayed (): void {
+    this.cardsCount$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(cards => { this.noMatchCards = cards === 0; });
+    this.activitiesCount$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(total => { this.totalActivities = total; });
+    this.pathsCount$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(total => { this.totalPaths = total; });
+    this.listControls$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(list => {
+        const initial: number = list.initialCards;
+        const exceedsMaxActivities: boolean = initial > this.totalActivities;
+        const exceedsMaxPaths: boolean = initial > this.totalPaths;
+        this.activitiesDisplayed = exceedsMaxActivities ? this.totalActivities : initial;
+        this.pathsDisplayed = exceedsMaxPaths ? this.totalPaths : initial;
+        return list;
+      });
+    const timesDisplayed: number = 2;
+    this.moreCards = this.activitiesDisplayed * timesDisplayed;
+  }
+
+  viewMoreActivities (moreCards: number): void {
+    this.activitiesDisplayed += moreCards;
+    const exceedsMaxActivities: boolean = this.activitiesDisplayed > this.totalActivities;
+    this.activitiesDisplayed = exceedsMaxActivities ? this.totalActivities : this.activitiesDisplayed;
+  }
+
+  viewMorePaths (moreCards: number): void {
+    this.pathsDisplayed += moreCards;
+    const exceedsMaxPaths: boolean = this.pathsDisplayed > this.totalPaths;
+    this.pathsDisplayed = exceedsMaxPaths ? this.totalPaths : this.pathsDisplayed;
+  }
+
+  get shouldShowAll (): boolean {
+    return this.pfSimpleTabs.currentTabUid === CatalogPageTabsName.All;
+  }
+
+  get shouldShowPaths (): boolean {
+    return this.pfSimpleTabs.currentTabUid === CatalogPageTabsName.Paths;
+  }
+
+  get shouldShowActivities (): boolean {
+    return this.pfSimpleTabs.currentTabUid === CatalogPageTabsName.Activities;
+  }
+
+  get tabAllHasCard (): boolean {
+    return this.shouldShowAll && !this.noMatchCards;
+  }
+
+  get shouldShowEmpty (): boolean {
+    return this.noMatchCards && !this.shouldShowPaths && !this.shouldShowActivities;
+  }
+
+  onTabChange (tab: string): void {
+    this.pfSimpleTabs.currentTabUid = tab;
+    this.store.setTab(tab);
+  }
+
+  onClearFilters (): void {
+    this.store.setFilters({});
+  }
+
+  private getRouteData (): RouteData {
+    return tryGet<RouteData>(() => <RouteData> this.route.snapshot.data, null);
+  }
+
+  private getFiltersValues (storeValues: CatalogFilter, filterMenus: CatalogMenu[]): CatalogFilter {
+    const values = {};
+
+    filterMenus.forEach(menu => {
+      const title = menu.title;
+      values[title] = {};
+
+      menu.data.forEach(option => {
+        const alias = option.alias;
+        const value = (title in storeValues && alias in storeValues[title])
+          ? storeValues[title][alias]
+          : false;
+
+        values[menu.title][option.alias] = value;
+      });
+    });
+
+    return values;
+  }
+
+  backToHome (): void {
+    const url = this.i18n.addLanguageToLink('/');
+    this.router.navigateByUrl(url);
+  }
+
+}

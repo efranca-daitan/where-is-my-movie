@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "allowJs": true,
+    "outDir": "../out-tsc/spec",
+    "types": ["jest", "jquery", "jsdom", "node"]
+  },
+  "files": ["test.ts", "polyfills.ts"],
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
+}
