@@ -1,30 +1,16 @@
-
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '@app/shared/shared.module';
-import { InlineSVGModule } from 'ng-inline-svg';
-import { CatalogRoutingModule } from './catalog-routing.module';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+
 import {
-  CatalogPageComponent,
-  CatalogPathCardComponent,
+  HomePageComponent,
+  SearchBarComponent,
+  ChipComponent,
 } from './components';
 
 @NgModule({
-  declarations: [
-    CatalogPageComponent,
-    CatalogPathCardComponent,
-  ],
-  imports: [
-    CatalogRoutingModule,
-    CommonModule,
-    InlineSVGModule.forRoot(),
-    ReactiveFormsModule,
-    SharedModule,
-    InlineSVGModule.forRoot(),
-  ],
-  exports: [
-    CatalogPathCardComponent,
-  ],
+  declarations: [HomePageComponent, SearchBarComponent, ChipComponent],
+  exports: [HomePageComponent],
+  imports: [FormsModule, BrowserModule],
 })
-export class CatalogModule {}
+export class HomeModule {}
