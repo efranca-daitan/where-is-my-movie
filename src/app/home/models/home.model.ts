@@ -1,26 +1,21 @@
 import { Chip } from './chip.model';
-
+import { Movie } from './movie.model';
 export class HomePage {
   title: string;
 
-  seachSection: {
+  searchSection: {
     default_input: string;
   };
   chipSection: {
     data: Chip[];
-    apply_label: string;
-    clear_all_label: string;
   };
   movieCardSection: {
-    title: string;
-    date: string;
-    overview: string;
-    image: { url: string };
+    data: Movie[];
   };
 
   constructor(data: any) {
     this.title = data.title;
-    this.seachSection = data.seachSection;
+    this.searchSection = data.searchSection;
     this.chipSection = data.chipSection;
     this.movieCardSection = data.movieCardSection;
   }
