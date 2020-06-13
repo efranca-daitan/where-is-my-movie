@@ -1,0 +1,17 @@
+.search-bar-container {
+    display: grid;
+    grid-template-columns: 1fr 30px;
+}
+
+.search-input {
+    display: grid;
+    grid-column: 1;
+}
+
+.search-button {
+    display: grid;
+    grid-column: 2;
+    width: 30px;
+    height: 20px;
+    background-color: red;
+}

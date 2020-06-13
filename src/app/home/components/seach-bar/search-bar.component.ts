@@ -11,9 +11,6 @@ export class SearchBarComponent implements OnInit {
   movies: Movie[];
   searchTerm: string;
   ngOnInit() {
-    this.getMovies
-      .getMovies(this.searchTerm)
-      .subscribe((data) => (this.movies = data.results));
   }
 
   search() {

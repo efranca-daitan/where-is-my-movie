@@ -2,8 +2,10 @@
   <div class="search-input">
     <input type="text" [(ngModel)]="searchTerm" placeholder="Search a movie" />
   </div>
-  <div class="search-button" (click)="search()"></div>
- <ng-container *ngFor="let movie of movies;">
-  <p>{{movie.original_title}}</p>
+  <button class="search-button" type="button" (click)="search()"></button>
+  <ng-container *ngIf="movies">
+    <ng-container *ngFor="let movie of movies">
+      <p>{{ movie.original_title }}</p>
+    </ng-container>
   </ng-container>
 </div>
