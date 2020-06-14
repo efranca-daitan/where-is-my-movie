@@ -6,10 +6,16 @@ import {
   HomePageComponent,
   SearchBarComponent,
   ChipComponent,
+  MovieCardComponent,
 } from './components';
 
 @NgModule({
-  declarations: [HomePageComponent, SearchBarComponent, ChipComponent],
+  declarations: [
+    HomePageComponent,
+    SearchBarComponent,
+    ChipComponent,
+    MovieCardComponent,
+  ],
   exports: [HomePageComponent],
   imports: [FormsModule, BrowserModule],
 })

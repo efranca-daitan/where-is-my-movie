@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { getMoviesApiService } from '../../services';
 import { Movie } from '../../models';
 
@@ -7,15 +7,18 @@ import { Movie } from '../../models';
   templateUrl: './search-bar.component.html',
 })
 export class SearchBarComponent implements OnInit {
+  @Output() movieChange = new EventEmitter<Movie>();
   constructor(private getMovies: getMoviesApiService) {}
   movies: Movie[];
   searchTerm: string;
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   search() {
     this.getMovies
       .getMovies(this.searchTerm)
       .subscribe((data) => (this.movies = data.results));
+  }
+  onSearchChange(movie) {
+    this.movieChange.emit(movie);
   }
 }

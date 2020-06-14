@@ -1,0 +1,26 @@
+<div class="movie-card-container">
+  <div class="movie-card-poster"></div>
+  <div class="movie-card-infos">
+    <div class="movie-card-title">
+      {{ movieSelected.original_title }}
+    </div>
+    <div class="movie-card-poster">
+      <img src="{{ imgUrl }}" width="500" height="600" />
+    </div>
+    <div class="movie-card-vote-average">
+      {{ movieSelected.vote_average }}
+    </div>
+    <div class="movie-card-vote-count">
+      {{ movieSelected.vote_count }}
+    </div>
+    <div class="movie-card-release-date">
+      {{ movieSelected.release_date }}
+    </div>
+    <div class="movie-card-overview">
+      {{ movieSelected.overview }}
+    </div>
+    <div class="movie-card-genre-container">
+      <div class="movie-card-genre">{{ movieSelected.genre }}</div>
+    </div>
+  </div>
+</div>

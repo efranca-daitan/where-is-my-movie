@@ -1,0 +1,20 @@
+.movie-card-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width: 200px;
+    height: 200px;
+    background-color: red;
+}
+
+.movie-card-poster {
+    display: grid;
+    grid-column: 1;
+}
+
+.movie-card-infos {
+    display: grid;
+    grid-column: 2;
+    width: 300px;
+    height: 200px;
+    background-color: red;
+}

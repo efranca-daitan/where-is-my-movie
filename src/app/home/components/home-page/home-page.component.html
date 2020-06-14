@@ -1,4 +1,12 @@
-<app-search-bar></app-search-bar>
-<!-- <ng-container *ngFor="let keyword of keyswords">
-  <app-chip [keyword]="keyword"></app-chip>
-</ng-container> -->
+<div class="home-template">
+  <div class="search-bar-template">
+    <app-search-bar
+      (movieChange)="receiveMovieSelected($event)"
+    ></app-search-bar>
+  </div>
+  <div class="movie-card-template">
+    <ng-container *ngIf="movieSelected">
+      <app-movie-card [movieSelected]="movieSelected"></app-movie-card>
+    </ng-container>
+  </div>
+</div>
