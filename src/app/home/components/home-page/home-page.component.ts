@@ -7,6 +7,7 @@ import { Movie } from '../../models';
 @Component({
   selector: 'app-home',
   templateUrl: './home-page.component.html',
+ styleUrls: ['./home-page.component.scss'],
   providers: [ChipComponent, SearchBarComponent, MovieCardComponent],
 })
 export class HomePageComponent implements OnInit {

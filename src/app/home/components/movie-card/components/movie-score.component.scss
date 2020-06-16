@@ -1,0 +1,48 @@
+.percent {
+    width: 130px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+        position: relative;
+        width: 130px;
+        height: 130px;
+        circle {
+            width: 130px;
+            height: 130px;
+            fill: none;
+            stroke-width: 5;
+            stroke: #000;
+            transform: translate(5px, 5px);
+            stroke-dasharray: 250;
+            stroke-dashoffset: 250;
+            stroke-linecap: round;
+            &:nth-child(1) {
+                width: 125px;
+                height: 125px;
+                fill: #081C22;
+                stroke: none;
+            }
+            &:nth-child(2) {
+                stroke-dashoffset: 0;
+            }
+        }
+    }
+    .number {
+        position: absolute;
+        display: flex;
+        margin-top: 8px;
+        margin-left: 5px;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 35px;
+        span {
+            position: absolute;
+            top: 5px;
+            font-size: 15px;
+        }
+    }
+}

@@ -1,20 +1,77 @@
-.movie-card-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    width: 200px;
-    height: 200px;
-    background-color: red;
-}
-
-.movie-card-poster {
-    display: grid;
-    grid-column: 1;
-}
-
-.movie-card-infos {
-    display: grid;
-    grid-column: 2;
-    width: 300px;
-    height: 200px;
-    background-color: red;
-}
+    .movie-card-container {
+        display: grid;
+        grid-template-columns: 18.75rem 2fr;
+        grid-template-rows: repeat(3, 190px);
+        width: 100%;
+        height: 570px;
+    }
+    
+    .movie-card-poster {
+        display: grid;
+        grid-column: 1;
+    }
+    
+    .poster {
+        min-width: 18.75rem;
+        width: 18.75rem;
+        min-height: 28.125rem;
+        height: 28.125rem;
+        border-radius: 5px;
+    }
+    
+    .movie-card-infos {
+        display: grid;
+        grid-column: 2;
+        width: 100%;
+        height: 570px;
+    }
+    
+    .movie-card-title-container {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-column: 1;
+        grid-row: 1;
+        font-size: 2.2rem;
+        padding-left: 2.5rem;
+        height: fit-content;
+        font-family: 'Source Sans Pro', Arial, sans-serif;
+        color: #ffffff
+    }
+    
+    .movie-card-title {
+        display: grid;
+        grid-column: 1;
+        grid-row: 1;
+        font-weight: 600;
+        margin-right: 5px;
+    }
+    
+    .movie-release-date {
+        display: grid;
+        grid-column: 2;
+        grid-row: 1;
+        opacity: 0.8;
+        font-weight: 400;
+    }
+    
+    .movie-card-vote-average {
+        display: grid;
+        grid-column: 1;
+        grid-row: 2;
+        padding-left: 2.5rem;
+    }
+    
+    .movie-card-overview {
+        grid-column: 1;
+        grid-row: 3;
+        color: #ffffff;
+        padding-left: 2.5rem;
+        font-family: 'Source Sans Pro', Arial, sans-serif;
+        .movie-card-subtitle {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        .movie-card-description {
+            font-size: 1rem;
+        }
+    }
