@@ -1,5 +1,3 @@
-import { Genre } from './genre.model';
-
 export interface Movie {
   id: number;
   popularity: number;
@@ -10,5 +8,5 @@ export interface Movie {
   release_date: Date;
   original_language: string;
   overview: string;
-  genre: Genre[];
+  genre_ids: number[];
 }

@@ -5,7 +5,7 @@
   <button class="search-button" type="button" (click)="search()"></button>
   <ng-container *ngIf="movies">
     <ng-container *ngFor="let movie of movies">
-      <button (click)="onSearchChange(movie)">
+      <button (click)="selectecMovie(movie)">
         {{ movie.original_title }}
       </button>
     </ng-container>

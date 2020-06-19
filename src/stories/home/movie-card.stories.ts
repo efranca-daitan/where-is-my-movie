@@ -1,50 +1,80 @@
-import { action } from '@storybook/addon-actions';
-import { MovieCardComponent } from './../../app/home/components/movie-card/movie-card.component';
+import { moduleMetadata } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
+import { MovieCardComponent } from './../../app/home/components';
+import { MovieScoreComponent } from './../../app/home/components/movie-card/components/movie-score.component';
 export default {
-  title: 'Task',
+  title: 'MovieCard',
   excludeStories: /.*Data$/,
+  decorators: [
+    moduleMetadata({
+      declarations: [MovieScoreComponent],
+      imports: [CommonModule],
+    }),
+  ],
 };
 
-export const actionsData = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+export const movieData = {
+  popularity: 69.083,
+  vote_count: 11928,
+  video: false,
+  poster_path: '/kgwjIb2JDHRhNk13lmSxiClFjVk.jpg',
+  id: 109445,
+  adult: false,
+  backdrop_path: '/vfkUC9sV1LoReuz1QuTIKTj8XpK.jpg',
+  original_language: 'en',
+  original_title: 'Frozen',
+  genre_ids: [12, 16, 10751],
+  title: 'Frozen',
+  vote_average: 7.3,
+  overview:
+    "Young princess Anna of Arendelle dreams about finding true love at her sister Elsa’s coronation. Fate takes her on a dangerous journey in an attempt to end the eternal winter that has fallen over the kingdom. She's accompanied by ice delivery man Kristoff, his reindeer Sven, and snowman Olaf. On an adventure where she will find out what friendship, courage, family, and true love really means.",
+  release_date: '2013-11-27',
 };
+export const genresData = new Map([
+  [28, 'Action'],
+  [12, 'Adventure'],
+  [16, 'Animation'],
+  [35, 'Comedy'],
+  [80, 'Crime'],
+  [99, 'Documentary'],
+  [18, 'Drama'],
+  [10751, 'Family'],
+  [14, 'Fantasy'],
+  [36, 'History'],
+  [27, 'Horror'],
+  [10402, 'Music'],
+  [9648, 'Mystery'],
+  [10749, 'Romance'],
+  [878, 'Science Fiction'],
+  [10770, 'TV Movie'],
+  [53, 'Thriller'],
+  [10752, 'War'],
+  [37, 'Western'],
+]);
 
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'Task_INBOX',
-  updated_at: new Date(2019, 0, 1, 9, 0),
-};
 export const Default = () => ({
   component: MovieCardComponent,
   props: {
-    task: taskData,
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
+    movieSelected: movieData,
+    genres: genresData,
+    porcent: 20,
   },
 });
-// pinned task state
-export const Pinned = () => ({
-  component: TaskComponent,
+
+export const WithoutPoster = () => ({
+  component: MovieCardComponent,
   props: {
-    task: {
-      ...taskData,
-      state: 'TASK_PINNED',
-    },
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
+    movieSelected: { ...movieData, poster_path: null },
+    genres: genresData,
+    porcent: 20,
   },
 });
-// archived task state
-export const Archived = () => ({
-  component: TaskComponent,
+
+export const WithoutBackground = () => ({
+  component: MovieCardComponent,
   props: {
-    task: {
-      ...taskData,
-      state: 'TASK_ARCHIVED',
-    },
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
+    movieSelected: { ...movieData, backdrop_path: null },
+    genres: genresData,
+    porcent: 20,
   },
 });

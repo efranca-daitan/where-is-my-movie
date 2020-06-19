@@ -26,14 +26,11 @@ export class MovieScoreComponent implements OnChanges, OnInit {
       low: { clear: '#DB2360', dark: '#571435' },
     };
   }
-
   ngOnChanges(changes: SimpleChanges) {
     for (const propName in changes) {
       if (changes.hasOwnProperty(propName)) {
         switch (propName) {
           case 'porcent': {
-            console.log(changes[propName].currentValue);
-            //this.porcent = changes[propName].currentValue.porcent;
             if (this.porcent > this.mediumPorcent) {
               this.colorScore = this.colors['high'];
             } else if (this.porcent > this.lowerPorcent) {
@@ -46,7 +43,6 @@ export class MovieScoreComponent implements OnChanges, OnInit {
       }
     }
   }
-
   ngOnInit() {
     if (this.porcent > this.mediumPorcent) {
       this.colorScore = this.colors['high'];

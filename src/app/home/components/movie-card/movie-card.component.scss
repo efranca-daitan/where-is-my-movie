@@ -1,77 +1,145 @@
-    .movie-card-container {
-        display: grid;
-        grid-template-columns: 18.75rem 2fr;
-        grid-template-rows: repeat(3, 190px);
-        width: 100%;
-        height: 570px;
-    }
-    
-    .movie-card-poster {
-        display: grid;
-        grid-column: 1;
-    }
-    
-    .poster {
-        min-width: 18.75rem;
-        width: 18.75rem;
-        min-height: 28.125rem;
-        height: 28.125rem;
-        border-radius: 5px;
-    }
-    
-    .movie-card-infos {
-        display: grid;
-        grid-column: 2;
-        width: 100%;
-        height: 570px;
-    }
-    
-    .movie-card-title-container {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        grid-column: 1;
-        grid-row: 1;
-        font-size: 2.2rem;
-        padding-left: 2.5rem;
-        height: fit-content;
-        font-family: 'Source Sans Pro', Arial, sans-serif;
-        color: #ffffff
-    }
-    
-    .movie-card-title {
-        display: grid;
-        grid-column: 1;
-        grid-row: 1;
-        font-weight: 600;
+@import "./../../../../utils/UI/settings.scss";
+
+.movie-card-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 1fr;
+    width: 100%;
+    height: 570px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.movie-card-gradient-backgroud {
+    display: grid;
+    align-items: center;
+    grid-column: 1;
+    background-image: linear-gradient(to right, rgba(7, 37, 65, 1) 105px, rgba(255, 255, 255, 0.2) 100%);
+}
+
+.movie-card-poster {
+    display: grid;
+    grid-column: 1;
+    padding-left: 35px;
+}
+
+.poster {
+    min-width: 18.75rem;
+    width: 18.75rem;
+    min-height: 28.125rem;
+    height: 28.125rem;
+    border-radius: 5px;
+}
+
+.movie-card-infos {
+    display: flex;
+    flex-direction: column;
+    grid-column: 2;
+    width: 100%;
+    height: 570px;
+}
+
+.movie-card-title-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 2.2rem;
+    margin-left: 2rem;
+    margin-top: 3.5rem;
+    height: fit-content;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    color: #ffffff
+}
+
+.movie-card-title {
+    display: grid;
+    grid-column: 1;
+    grid-row: 1;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.movie-card-release-year {
+    display: grid;
+    grid-column: 2;
+    grid-row: 1;
+    opacity: 0.8;
+    font-weight: 400;
+}
+
+.movie-card-detailed-infos {
+    color: #ffffff;
+    display: flex;
+    margin-left: 2rem;
+    margin-top: 1rem;
+}
+
+.movie-card-release-date {
+    font-weight: bold;
+}
+
+.movie-card-original-language {
+    margin-left: 5px;
+}
+
+.movie-card-genres {
+    display: flex;
+    margin-left: 5px;
+    &:before {
+        font-size: 1.1em;
+        line-height: 1;
+        content: '\2022';
+        align-content: center;
+        align-items: center;
         margin-right: 5px;
     }
-    
-    .movie-release-date {
-        display: grid;
-        grid-column: 2;
-        grid-row: 1;
-        opacity: 0.8;
-        font-weight: 400;
-    }
-    
-    .movie-card-vote-average {
-        display: grid;
-        grid-column: 1;
-        grid-row: 2;
-        padding-left: 2.5rem;
-    }
-    
-    .movie-card-overview {
-        grid-column: 1;
-        grid-row: 3;
+}
+
+.movie-card-vote-average {
+    display: flex;
+    grid-column: 1;
+    grid-row: 3;
+    margin-left: 1.6rem;
+    margin-top: 2rem;
+    align-items: center;
+    span {
         color: #ffffff;
-        padding-left: 2.5rem;
-        font-family: 'Source Sans Pro', Arial, sans-serif;
-        .movie-card-subtitle {
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-        .movie-card-description {
-            font-size: 1rem;
-        }
+        font-size: 22px;
+        font-weight: bold;
+        margin-left: 5px;
     }
+}
+
+.movie-card-overview {
+    grid-column: 1;
+    grid-row: 4;
+    color: #ffffff;
+    display: grid;
+    margin-top: 4.3rem;
+    margin-left: 2rem;
+    align-items: center;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    .movie-card-subtitle {
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: 2rem;
+        ;
+    }
+    .movie-card-description {
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        height: 4.5rem;
+        align-self: baseline;
+        background-color: rgba(7, 37, 65, 0.7);
+        border-radius: 5px;
+        text-align: justify;
+        padding: 1.3rem;
+        margin-right: 2rem;
+    }
+}
+
+@include mobile-size {
+
+}
