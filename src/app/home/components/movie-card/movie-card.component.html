@@ -1,0 +1,55 @@
+<div
+  [ngStyle]="backdropUrl && { 'background-image': 'url(' + backdropUrl + ')' }"
+  class="movie-card-container"
+>
+  <div class="movie-card-gradient-backgroud">
+    <div class="movie-card-poster">
+      <div class="poster-content">
+        <img class="poster" src="{{ posterUrl }}" />
+      </div>
+    </div>
+    <div class="movie-card-infos">
+      <div class="movie-card-title-container">
+        <a class="movie-card-title">{{ movieSelected.original_title }}</a>
+        <span class="movie-release-year">({{ releaseYear }})</span>
+      </div>
+      <div class="movie-card-detailed-infos">
+        <div class="movie-card-release-date">
+          {{ movieSelected.release_date }}
+        </div>
+        <div class="movie-card-original-language">({{ originalLanguage }})</div>
+        <div class="movie-card-genres">
+          <ng-container *ngIf="movieGenres">
+            <ng-container *ngFor="let genre of movieGenres; let i = index">
+              {{ genre }}
+              <span *ngIf="i != movieGenres.length - 1"> ,&nbsp; </span>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="movie-card-vote-average">
+        <app-movie-card-score [porcent]="porcent"> </app-movie-card-score>
+        <span>
+          Score
+        </span>
+      </div>
+
+      <!--
+    <div class="movie-card-vote-count">
+      {{ movieSelected.vote_count }}
+    </div>
+    <div class="movie-card-genre-container">
+
+      <div class="movie-card-genre">{{ movieSelected.genre }}</div>
+    </div>
+  </div> -->
+      <div class="movie-card-overview">
+        <div class="movie-card-subtitle">Overview</div>
+        <div class="movie-card-description">
+          {{ movieSelected.overview }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

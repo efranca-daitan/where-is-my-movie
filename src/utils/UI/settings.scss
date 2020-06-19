@@ -1,0 +1,20 @@
+
+$mobile-max-width: 36.5em;
+
+$tablet-min-width: 36.51em;
+$tablet-med-width: 48em;
+$tablet-max-width: 74.86em;
+
+$full-min-width: 74.87em;
+
+@mixin mobile-size {
+  @media (max-width: $mobile-max-width) { @content; }
+}
+
+@mixin tablet-size {
+  @media (min-width: $tablet-min-width) and (max-width: $tablet-max-width) { @content; }
+}
+
+@mixin full-size {
+  @media (min-width: $full-min-width) { @content; }
+}

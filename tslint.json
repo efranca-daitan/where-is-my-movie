@@ -58,7 +58,7 @@
         "no-empty-interface": true,
         "no-eval": true,
         "no-irregular-whitespace": true,
-        "no-magic-numbers": true,
+        "no-magic-numbers": false,
         "no-parameter-reassignment": true,
         "no-shadowed-variable": true,
         "no-string-literal": false,
