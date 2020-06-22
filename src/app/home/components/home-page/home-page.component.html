@@ -1,9 +1,9 @@
 <div class="home-template">
-  <div class="search-bar-template">
-    <app-search-bar
-      (movieChange)="receiveMovieSelected($event)"
-    ></app-search-bar>
-  </div>
+  <app-search-bar
+    class="search-bar-template"
+    (movieChange)="receiveMovieSelected($event)"
+  >
+  </app-search-bar>
   <div class="movie-card-template">
     <ng-container *ngIf="movieSelected && genres">
       <app-movie-card
