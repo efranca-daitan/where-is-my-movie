@@ -2,6 +2,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { MovieCardComponent } from './../../app/home/components';
 import { MovieScoreComponent } from './../../app/home/components/movie-card/components/movie-score.component';
+
 export default {
   title: 'MovieCard',
   excludeStories: /.*Data$/,
@@ -30,6 +31,7 @@ export const movieData = {
     "Young princess Anna of Arendelle dreams about finding true love at her sister Elsa’s coronation. Fate takes her on a dangerous journey in an attempt to end the eternal winter that has fallen over the kingdom. She's accompanied by ice delivery man Kristoff, his reindeer Sven, and snowman Olaf. On an adventure where she will find out what friendship, courage, family, and true love really means.",
   release_date: '2013-11-27',
 };
+
 export const genresData = new Map([
   [28, 'Action'],
   [12, 'Adventure'],

@@ -1,13 +1,18 @@
-<div class="search-bar-container">
-  <div class="search-input">
-    <input type="text" [(ngModel)]="searchTerm" placeholder="Search a movie" />
-  </div>
-  <button class="search-button" type="button" (click)="search()"></button>
-  <ng-container *ngIf="movies">
-    <ng-container *ngFor="let movie of movies">
-      <button (click)="selectecMovie(movie)">
-        {{ movie.original_title }}
-      </button>
-    </ng-container>
+<form class="search-bar-container" action="search()">
+  <input
+    class="search-input"
+    type="text"
+    [(ngModel)]="searchTerm"
+    placeholder="Search a movie"
+    [ngModelOptions]="{ standalone: true }"
+  />
+  <button class="search-button" type="submit" (click)="search()">Search</button>
+</form>
+
+<!-- <ng-container *ngIf="movies">
+  <ng-container *ngFor="let movie of movies">
+    <button (click)="selectecMovie(movie)">
+      {{ movie.original_title }}
+    </button>
   </ng-container>
-</div>
+</ng-container> -->
